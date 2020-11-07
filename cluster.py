@@ -49,14 +49,14 @@ df = df.drop('type_list')
 #print(df.count())
 
 # 获取特征值向量(电影类型及评分)
-vectorAssembler = VectorAssembler(inputCols = movie_type, outputCol = "vectorFeature")
+vectorAssembler = VectorAssembler(inputCols = movie_type + ["score"], outputCol = "vectorFeature")
 vdf = vectorAssembler.transform(df)
 #vdf.select("vectorFeature").show(3, False)
 
 '''
-使用手肘法确定合适的K值(K取值范围[10, 40])
-cost = list(range(10,40))
-for k in range(10, 40):
+#使用手肘法确定合适的K值(K取值范围[10, 80])
+cost = list(range(10,80))
+for k in range(10, 80):
 	kmeans = KMeans(k = k, seed = 1, featuresCol = 'vectorFeature')
 	model = kmeans.fit(vdf)
 	cost[k - 10] = model.computeCost(vdf)
@@ -64,15 +64,16 @@ for k in range(10, 40):
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(1,1, figsize=(8,6))
-ax.plot(range(10,40), cost)
+ax.plot(range(10,80), cost)
 ax.set_xlabel('k')
 ax.set_ylabel('cost')
 plt.show()
 '''
 '''
-根据最终选择的特征值(K = 30)进行聚类
+根据最终选择的特征值(K = 20)进行聚类
 '''
-kmeans = KMeans(k = 30, seed = 1, featuresCol = 'vectorFeature')
+
+kmeans = KMeans(k = 20, seed = 1, featuresCol = 'vectorFeature')
 model = kmeans.fit(vdf)
 
 #打印各类簇中心点
