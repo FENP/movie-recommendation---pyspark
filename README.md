@@ -1,6 +1,6 @@
 # movie-recommendation---pyspark
 
-use pyspark to recommend movie()
+Using pyspark to recommend movie
 
 jdk version: 1.8.0_265
 
@@ -10,7 +10,7 @@ spark version : 2.4.4
 
 python version : 2.7.12
 
-command:
+**command:**
 
 `spark-submit --master local cluster.py`
 
